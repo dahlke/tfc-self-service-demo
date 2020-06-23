@@ -80,6 +80,16 @@ def list_workspaces():
     print("get the workspaces")
     return jsonify(all_workspaces)
 
+# TODO: apply by ID function which I can even enter manually.
+@app.route('/workspaces/plan/<workspace_id>')
+def plan_workspace(workspace_id):
+    print(workspace_id)
+
+# TODO: apply by ID function which I can even enter manually.
+@app.route('/workspaces/apply/<workspace_id>')
+def apply_workspace(workspace_id):
+    print(workspace_id)
+
 @app.route('/config_bundles/<bundle_id>')
 def create_bundle(bundle_id):
     api = TFC(TFC_TOKEN)

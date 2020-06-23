@@ -1,18 +1,23 @@
 # TFC Self Service Demo
 
-#### Requirements
-- docker
+```
+{
+  environment = "dev",
+  name = "neil-test",
+  owner = "neil-dahlke"
+}
+```
 
-### Developing the Backend
 
-### Developing the Frontend
-To build the frontend for production..
+```
+terraform {
+  backend "remote" {
+    hostname = "app.terraform.io"
+    organization = "hc-se-tfe-demo-neil"
 
-### Building the Container
-
-### Running the Container
-Each container requires 4 environment variables: PG_DB_ADDR.
-
-#### Running A Development Container
-
-#### Running A Production Container
+    workspaces {
+      name = "self-service-config-designer"
+    }
+  }
+}
+```
