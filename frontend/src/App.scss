@@ -13,4 +13,21 @@ HC_VAGRANT_BLUE_DARKEST = "#08368B";
   bottom: 0;
   left: 0;
   right: 0;
+
+  .logo {
+    width: 200px;
+  }
+  
+  .half-col {
+    width: 50%;
+    float: left;
+
+    .config-bundle,
+    .workspace {
+      cursor: pointer;
+      border: 1px solid #888;
+      padding: 10px;
+      margin: 10px;
+    }
+  }
 }
