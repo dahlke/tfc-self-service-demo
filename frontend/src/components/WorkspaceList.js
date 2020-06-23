@@ -34,11 +34,27 @@ class App extends Component {
   }
 
   _planWorkspace(event) {
-    console.log("TODO", event);
+    const workspaceId = event.currentTarget.dataset.workspaceId;
+    const url = `${WORKSPACES_URL}/plan/${workspaceId}`;
+    console.log("plan", url);
   }
 
   _applyWorkspace(event) {
-    console.log("TODO", event);
+    const workspaceId = event.currentTarget.dataset.workspaceId;
+    const url = `${WORKSPACES_URL}/apply/${workspaceId}`;
+    console.log("apply", url);
+  }
+
+  _destroyWorkspace(event) {
+    const workspaceId = event.currentTarget.dataset.workspaceId;
+    const url = `${WORKSPACES_URL}/destroy/${workspaceId}`;
+    console.log("destroy", url);
+  }
+
+  _deleteWorkspace(event) {
+    const workspaceId = event.currentTarget.dataset.workspaceId;
+    const url = `${WORKSPACES_URL}/delete/${workspaceId}`;
+    console.log("delete", url);
   }
 
   _buildWorkspaceElements() {
@@ -51,10 +67,10 @@ class App extends Component {
         return (
           <div className="workspace" key={data.id} data-workspace-id={data.id}>
             <a href={url} target="_blank">{data.attributes.name}</a>
-            <button>Plan</button>
-            <button>Apply</button>
-            <button>Destroy</button>
-            <button>Delete</button>
+            <button data-workspace-id={data.id} onClick={this._planWorkspace.bind(this)}>Plan</button>
+            <button data-workspace-id={data.id} onClick={this._applyWorkspace.bind(this)}>Apply</button>
+            <button data-workspace-id={data.id} onClick={this._destroyWorkspace.bind(this)}>Destroy</button>
+            <button data-workspace-id={data.id} onClick={this._deleteWorkspace.bind(this)}>Delete</button>
           </div>
         );
     });
