@@ -20,6 +20,11 @@ CONFIG_BUNDLES = {
             "id": "aws-two-tier",
             "working-dir": "two-tier-tfc-demo-app/aws",
             "name": "AWS Two Tier App"
+        },
+        {
+            "id": "aws-fargate",
+            "working-dir": "/",
+            "name": "AWS Fargate App"
         }
     ],
     "azure": [
@@ -38,9 +43,21 @@ CONFIG_BUNDLES = {
     ]
 }
 
-def _get_create_payload(bundle_id):
-    # TODO: fix workspace name
 
+"""
+        self._run = self._api.runs.create(create_run_payload)["data"]
+        self._api.runs.apply(self._run_id)
+        applied_run = self._api.runs.show(self._run_id)["data"]
+
+        self._logger.debug("Waiting for apply to kick off...")
+        while applied_run["attributes"]["status-timestamps"]["applying-at"] is None:
+            applied_run = self._api.runs.show(self._run_id)["data"]
+            time.sleep(1)
+        self._logger.debug("Apply kicked off.")
+        self.assertIsNotNone(applied_run["attributes"]["status-timestamps"]["applying-at"])
+"""
+
+def _get_create_payload(bundle_id):
     working_dir = None
     for provider in CONFIG_BUNDLES:
         for bundle in CONFIG_BUNDLES[provider]:
@@ -82,7 +99,7 @@ def list_workspaces():
 
 # TODO: apply by ID function which I can even enter manually.
 @app.route('/workspaces/plan/<workspace_id>')
-def plan_workspace(workspace_id):
+def plan(workspace_id):
     print(workspace_id)
 
 # TODO: apply by ID function which I can even enter manually.

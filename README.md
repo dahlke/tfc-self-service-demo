@@ -21,3 +21,5 @@ terraform {
   }
 }
 ```
+
+https://app.terraform.io/app/hc-se-tfe-demo-neil/modules/view/workshop-fargate/aws/0.0.2

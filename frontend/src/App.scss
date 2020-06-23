@@ -17,17 +17,51 @@ HC_VAGRANT_BLUE_DARKEST = "#08368B";
   .logo {
     width: 200px;
   }
-  
+
+    .tabs {
+      border: 1px solid #888;
+      height: 20px;
+      
+      .tab {
+        display: block;
+        height: 20px;
+        cursor: pointer;
+        &.selected {
+          background: #ccc;
+        }
+
+        &:hover {
+          background: #fee;
+        }
+      }
+    }
+
   .half-col {
     width: 50%;
     float: left;
+  }
 
-    .config-bundle,
-    .workspace {
-      cursor: pointer;
-      border: 1px solid #888;
-      padding: 10px;
-      margin: 10px;
+  .bundle-list, 
+  .workspaces-list {
+    margin-top: 10px;
+    display: inline-block;
+    width: 50%;
+  }
+
+  .config-bundle,
+  .workspace {
+    display: block;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px;
+
+    &:hover {
+      border-color: #222;
+    }
+
+    button {
+      margin-left: 10px;
     }
   }
 }
