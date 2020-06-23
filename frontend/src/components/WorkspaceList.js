@@ -36,7 +36,16 @@ class App extends Component {
   _planWorkspace(event) {
     const workspaceId = event.currentTarget.dataset.workspaceId;
     const url = `${WORKSPACES_URL}/plan/${workspaceId}`;
-    console.log("plan", url);
+    fetch(url)
+      .then((response) => {
+        return response.json()
+      })
+      .catch((err) => {
+        console.log("Error planning workspace.");
+      })
+      .then((data) => {
+        console.log("plan response", data);
+      });
   }
 
   _applyWorkspace(event) {
@@ -54,7 +63,16 @@ class App extends Component {
   _deleteWorkspace(event) {
     const workspaceId = event.currentTarget.dataset.workspaceId;
     const url = `${WORKSPACES_URL}/delete/${workspaceId}`;
-    console.log("delete", url);
+    fetch(url)
+      .then((response) => {
+        return response.json()
+      })
+      .catch((err) => {
+        console.log("Error planning workspace.");
+      })
+      .then((data) => {
+        console.log("destroy response", data);
+      });
   }
 
   _buildWorkspaceElements() {
@@ -66,7 +84,7 @@ class App extends Component {
 
         return (
           <div className="workspace" key={data.id} data-workspace-id={data.id}>
-            <a href={url} target="_blank">{data.attributes.name}</a>
+            <a href={url} _target="blank" rel="noopener noreferrer">{data.attributes.name}</a>
             <button data-workspace-id={data.id} onClick={this._planWorkspace.bind(this)}>Plan</button>
             <button data-workspace-id={data.id} onClick={this._applyWorkspace.bind(this)}>Apply</button>
             <button data-workspace-id={data.id} onClick={this._destroyWorkspace.bind(this)}>Destroy</button>

@@ -13,6 +13,9 @@ TFC_ORG_NAME="hc-se-tfe-demo-neil"
 TFC_OAUTH_TOKEN_ID = os.getenv("TFC_OAUTH_TOKEN_ID", None)
 TFC_TOKEN = os.getenv("TFC_TOKEN", None)
 
+api = TFC(TFC_TOKEN)
+api.set_org(TFC_ORG_NAME)
+
 # TODO: add as many other bundles as I can, including the Omni demo
 CONFIG_BUNDLES = {
     "aws": [
@@ -57,6 +60,7 @@ CONFIG_BUNDLES = {
         self.assertIsNotNone(applied_run["attributes"]["status-timestamps"]["applying-at"])
 """
 
+
 def _get_create_payload(bundle_id):
     working_dir = None
     for provider in CONFIG_BUNDLES:
@@ -84,34 +88,59 @@ def _get_create_payload(bundle_id):
         }
     }
 
+def _get_plan_payload(ws_id):
+    return {
+        "data": {
+            "attributes": {
+                "is-destroy": False,
+                "message": "test"
+            },
+            "type": "runs",
+            "relationships": {
+                "workspace": {
+                    "data": {
+                        "type": "workspaces",
+                        "id": ws_id
+                    }
+                }
+            }
+        }
+    }
+
 @app.route('/config_bundles/')
 def config_bundles():
     return jsonify(CONFIG_BUNDLES)
 
-# TODO: apply by ID function which I can even enter manually.
 @app.route('/workspaces/')
 def list_workspaces():
-    api = TFC(TFC_TOKEN)
-    api.set_org(TFC_ORG_NAME)
     all_workspaces = api.workspaces.list()["data"]
-    print("get the workspaces")
     return jsonify(all_workspaces)
 
-# TODO: apply by ID function which I can even enter manually.
 @app.route('/workspaces/plan/<workspace_id>')
-def plan(workspace_id):
-    print(workspace_id)
+def plan_workspace(workspace_id):
+    plan_payload = _get_plan_payload(workspace_id)
+    print("plan", plan_payload)
+    run = api.runs.create(plan_payload)["data"]
+    print("run", run)
+    return jsonify(run)
 
-# TODO: apply by ID function which I can even enter manually.
-@app.route('/workspaces/apply/<workspace_id>')
-def apply_workspace(workspace_id):
-    print(workspace_id)
+@app.route('/workspaces/apply/<run_id>')
+def apply_workspace(run_id):
+    print("apply", run_id)
+    return jsonify({})
+
+@app.route('/workspaces/destroy/<workspace_id>')
+def destroy_workspace(workspace_id):
+    print("destroy", workspace_id)
+    return jsonify({})
+
+@app.route('/workspaces/delete/<workspace_id>')
+def delete_workspace(workspace_id):
+    api.workspaces.destroy(workspace_id=workspace_id)
+    return jsonify({"status": "ok"})
 
 @app.route('/config_bundles/<bundle_id>')
 def create_bundle(bundle_id):
-    api = TFC(TFC_TOKEN)
-    api.set_org(TFC_ORG_NAME)
-    # TODO: webhook receive, explain why I'm not applying
     create_payload = _get_create_payload(bundle_id)
     workspace = api.workspaces.create(create_payload)["data"]
     return jsonify(workspace)
