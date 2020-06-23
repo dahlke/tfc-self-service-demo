@@ -7,6 +7,13 @@ WEB_IMAGE_NAME=${APP_NAME}-web
 WEB_IMAGE_VERSION=0.1
 
 ##########################
+# DEV HELPERS
+##########################
+.PHONY: todo
+todo:
+	@ag "TODO" --ignore Makefile
+
+##########################
 # WEB APP HELPERS
 #########################
 .PHONY: npm_build_frontend

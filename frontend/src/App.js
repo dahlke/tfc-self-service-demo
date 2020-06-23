@@ -56,7 +56,6 @@ class App extends Component {
 
   _createFromConfigBundle(bundleId) {
       const url = `${CONFIG_BUNDLES_URL}/${bundleId}`;
-      console.log("create from bundle", url)
       fetch(url)
         .then((response) => {
           return response.json()
