@@ -1,0 +1,12 @@
+# Development
+.vscode/
+node_modules/
+
+# Compiled or retrieved
+web/frontend/build/
+.terraform/
+
+# Secrets
+*.tfstate
+*.tfstate.*
+*.tfvars
