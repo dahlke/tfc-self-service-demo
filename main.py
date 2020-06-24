@@ -22,11 +22,13 @@ CONFIG_BUNDLES = {
         {
             "id": "aws-two-tier",
             "working-dir": "two-tier-tfc-demo-app/aws",
+            "repo": "dahlke/tfc-demo",
             "name": "AWS Two Tier App"
         },
         {
             "id": "aws-fargate",
             "working-dir": "/",
+            "repo": "dahlke/terraform-aws-workshop-fargate",
             "name": "AWS Fargate App"
         }
     ],
@@ -34,6 +36,7 @@ CONFIG_BUNDLES = {
         {
             "id": "azure-two-tier",
             "working-dir": "two-tier-tfc-demo-app/azure",
+            "repo": "dahlke/tfc-demo",
             "name": "Azure Two Tier App"
         }
     ],
@@ -41,31 +44,16 @@ CONFIG_BUNDLES = {
         {
             "id": "gcp-two-tier",
             "working-dir": "two-tier-tfc-demo-app/gcp",
+            "repo": "dahlke/tfc-demo",
             "name": "GCP Two Tier App"
         }
     ]
 }
 
-
-"""
-        self._run = self._api.runs.create(create_run_payload)["data"]
-        self._api.runs.apply(self._run_id)
-        applied_run = self._api.runs.show(self._run_id)["data"]
-
-        self._logger.debug("Waiting for apply to kick off...")
-        while applied_run["attributes"]["status-timestamps"]["applying-at"] is None:
-            applied_run = self._api.runs.show(self._run_id)["data"]
-            time.sleep(1)
-        self._logger.debug("Apply kicked off.")
-        self.assertIsNotNone(applied_run["attributes"]["status-timestamps"]["applying-at"])
-"""
-
-
 def _get_create_payload(bundle_id):
     working_dir = None
     for provider in CONFIG_BUNDLES:
         for bundle in CONFIG_BUNDLES[provider]:
-            print(bundle)
             if bundle["id"] == bundle_id:
                 working_dir = bundle["working-dir"]
                 break
@@ -119,18 +107,18 @@ def list_workspaces():
 @app.route('/workspaces/plan/<workspace_id>')
 def plan_workspace(workspace_id):
     plan_payload = _get_plan_payload(workspace_id)
-    print("plan", plan_payload)
     run = api.runs.create(plan_payload)["data"]
-    print("run", run)
     return jsonify(run)
 
 @app.route('/workspaces/apply/<run_id>')
 def apply_workspace(run_id):
+    # TODO
     print("apply", run_id)
     return jsonify({})
 
 @app.route('/workspaces/destroy/<workspace_id>')
 def destroy_workspace(workspace_id):
+    # TODO
     print("destroy", workspace_id)
     return jsonify({})
 
@@ -138,6 +126,24 @@ def destroy_workspace(workspace_id):
 def delete_workspace(workspace_id):
     api.workspaces.destroy(workspace_id=workspace_id)
     return jsonify({"status": "ok"})
+
+@app.route('/workspaces/show/<workspace_id>')
+def show_workspace(workspace_id):
+    ws = api.workspaces.show(workspace_id=workspace_id)["data"]
+    latest_run_id = None
+    run = None
+
+    if "latest-run" in ws["relationships"] and \
+        "data" in ws["relationships"]["latest-run"] and \
+        ws["relationships"]["latest-run"]["data"] is not None:
+        print(ws["relationships"]["latest-run"])
+        latest_run_id = ws["relationships"]["latest-run"]["data"]["id"]
+        run = api.runs.show(latest_run_id)["data"]
+
+    return jsonify({
+        "workspace": ws,
+        "latest-run": run
+    })
 
 @app.route('/config_bundles/<bundle_id>')
 def create_bundle(bundle_id):

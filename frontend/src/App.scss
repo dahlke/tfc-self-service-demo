@@ -6,15 +6,13 @@ HC_VAGRANT_BLUE_DARKEST = "#08368B";
 */
 
 .App {
-  text-align: center;
-  position: absolute;
   font-family: 'Klavika', 'Courier New', Courier, monospace;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  width: 500px;
+  margin: auto;
+  text-align: center;
 
   .logo {
+    margin-top: 20px;
     width: 200px;
   }
 
@@ -45,7 +43,7 @@ HC_VAGRANT_BLUE_DARKEST = "#08368B";
   .workspaces-list {
     margin-top: 10px;
     display: inline-block;
-    width: 50%;
+    width: 100%;
   }
 
   .config-bundle,
@@ -63,5 +61,14 @@ HC_VAGRANT_BLUE_DARKEST = "#08368B";
     button {
       margin-left: 10px;
     }
+  }
+
+  .config-bundle,
+  .workspace {
+      a {
+        width: 100%;
+        display: block;
+        margin-bottom: 5px;
+      }
   }
 }

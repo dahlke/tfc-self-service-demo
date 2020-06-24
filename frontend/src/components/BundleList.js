@@ -55,16 +55,16 @@ class BundleList extends Component {
 
   _buildConfigBundleElements() {
     let configBundleElements = {};
-    // TODO: add a create button
-    // TODO: add a button to link to VCS so you can see what you're doing
     // TODO: Add AWS, GCP, Azure logos and descriptions
-    // TODO: show link to VCS repo that is used
+
     for (var key in this.state.configBundles) {
       configBundleElements[key] = [];
       configBundleElements[key] = this.state.configBundles[key].map((data) => {
+        const url = `http://github.com/${data.repo}/tree/master/${data["working-dir"]}`;
+
         return (
           <div className="config-bundle" key={data.id}>
-            {data.name}
+            <a href={url} _target="blank" rel="noopener noreferrer">{data.name}</a>
             <button data-tf-config-bundle-id={data.id} onClick={this._clickConfigBundle.bind(this)}>Create</button>
           </div>
         );
