@@ -1,0 +1,32 @@
+{
+    "aws": [
+        {
+            "id": "aws-two-tier",
+            "working-dir": "two-tier-tfc-demo-app/aws",
+            "repo": "dahlke/tfc-demo",
+            "name": "AWS Two Tier App"
+        },
+        {
+            "id": "aws-fargate",
+            "working-dir": "/",
+            "repo": "dahlke/terraform-aws-workshop-fargate",
+            "name": "AWS Fargate App"
+        }
+    ],
+    "azure": [
+        {
+            "id": "azure-two-tier",
+            "working-dir": "two-tier-tfc-demo-app/azure",
+            "repo": "dahlke/tfc-demo",
+            "name": "Azure Two Tier App"
+        }
+    ],
+    "gcp": [
+        {
+            "id": "gcp-two-tier",
+            "working-dir": "two-tier-tfc-demo-app/gcp",
+            "repo": "dahlke/tfc-demo",
+            "name": "GCP Two Tier App"
+        }
+    ]
+}
