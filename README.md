@@ -24,10 +24,12 @@ export TFC_OAUTH_TOKEN_ID="";
 
 ### Start the Web Server
 ```
-python main.py;
+make docker_build_app
+make npm_build_frontend
+make docker_run_app
 ```
 
-### Start the Frontend Server
+### Start the Frontend Server for Development
 ```
 cd frontend/
 yarn start

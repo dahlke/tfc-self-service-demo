@@ -86,5 +86,4 @@ def serve(path):
 
 if __name__ == '__main__':
     bundles = api_request_helpers.get_config_bundles()
-    print(bundles)
     app.run(host='0.0.0.0', use_reloader=True, port=5000, threaded=True)
