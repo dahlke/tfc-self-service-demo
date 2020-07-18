@@ -22,16 +22,14 @@ export TFC_TOKEN="";
 export TFC_OAUTH_TOKEN_ID="";
 ```
 
-### Start the Web Server
+### Run the App in Production
 ```
-make docker_build_app
 make npm_build_frontend
+make docker_build_app
 make docker_run_app
 ```
 
 ### Start the Frontend Server for Development
 ```
-cd frontend/
-yarn start
-open http://localhost:3000/
+make docker_run_app_dev
 ```
