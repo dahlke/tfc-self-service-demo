@@ -8,7 +8,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
-    "recharts": "1.8.5",
+    "recharts": "2.1.14",
     "react-modal": "3.11.2"
   },
   "scripts": {
